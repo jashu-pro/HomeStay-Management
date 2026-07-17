@@ -1,3 +1,5 @@
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 export interface SafeFetchOptions extends RequestInit {
   timeout?: number;
 }
@@ -5,20 +7,23 @@ export interface SafeFetchOptions extends RequestInit {
 export async function safeFetch(url: string, options: SafeFetchOptions = {}): Promise<any> {
   const { timeout = 15000, ...fetchOptions } = options;
   
+  // In production, prefix relative /api/* paths with the backend base URL
+  const resolvedUrl = url.startsWith('/api/') ? `${API_BASE}${url}` : url;
+  
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
   
-  console.log(`[API Request] ${fetchOptions.method || 'GET'} ${url}`);
+  console.log(`[API Request] ${fetchOptions.method || 'GET'} ${resolvedUrl}`);
   
   try {
-    const response = await fetch(url, {
+    const response = await fetch(resolvedUrl, {
       ...fetchOptions,
       signal: controller.signal
     });
     
     clearTimeout(id);
     
-    console.log(`[API Response] ${response.status} ${response.statusText} for ${url}`);
+    console.log(`[API Response] ${response.status} ${response.statusText} for ${resolvedUrl}`);
     
     const headersObj: Record<string, string> = {};
     response.headers.forEach((value, key) => {
@@ -83,7 +88,7 @@ export async function safeFetch(url: string, options: SafeFetchOptions = {}): Pr
           headers['Authorization'] = `Bearer ${token}`;
         }
         
-        fetch('/api/sync', { headers })
+        fetch(`${API_BASE}/api/sync`, { headers })
           .then(res => res.json())
           .then(syncData => {
             if (syncData && syncData.db) {
@@ -102,12 +107,12 @@ export async function safeFetch(url: string, options: SafeFetchOptions = {}): Pr
   } catch (error: any) {
     clearTimeout(id);
     if (error.name === 'AbortError') {
-      console.error(`[API Timeout] Request to ${url} exceeded timeout of ${timeout}ms`);
+      console.error(`[API Timeout] Request to ${resolvedUrl} exceeded timeout of ${timeout}ms`);
       throw new Error('Network request timed out. Please check your internet connection and try again.');
     }
     
     if (error.message === 'Failed to fetch') {
-      console.warn(`[API Connection Failed] Could not connect to ${url}`);
+      console.warn(`[API Connection Failed] Could not connect to ${resolvedUrl}`);
       throw new Error('Unable to connect to the server. The backend might be offline or unreachable.');
     }
     

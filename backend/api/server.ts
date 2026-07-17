@@ -45,7 +45,7 @@ try {
 }
 
 const app = express();
-const PORT = 3000;
+const PORT = parseInt(process.env.PORT || '3000', 10);
 const JWT_SECRET = process.env.JWT_SECRET || 'homestay-secret-key-12345';
 
 const DB_DIR = process.env.VERCEL ? '/tmp' : path.join(process.cwd(), 'data');

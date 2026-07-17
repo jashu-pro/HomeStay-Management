@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: homestay-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        sync: false          # Set manually in Render dashboard
+      - key: SUPABASE_URL
+        sync: false          # Set manually in Render dashboard
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false          # Set manually in Render dashboard
+      - key: RESEND_API_KEY
+        sync: false          # Optional — set if you use Resend for email
+      - key: RESEND_FROM
+        sync: false          # Optional — e.g. noreply@yourdomain.com
