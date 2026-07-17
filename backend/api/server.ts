@@ -239,12 +239,17 @@ app.use('/uploads', express.static(UPLOADS_DIR));
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Authorization');
   if (req.method === 'OPTIONS') {
     res.sendStatus(200);
     return;
   }
   next();
+});
+
+// Health check endpoint — used by frontend to wake up Render free-tier instance
+app.get('/api/health', (_req: Request, res: Response) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // Request Logging Middleware for status, method, url, and headers

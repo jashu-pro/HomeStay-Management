@@ -1,6 +1,10 @@
 import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
+import { wakeUpBackend } from './lib/api';
+
+// Wake up the Render backend immediately (free tier sleeps after 15min inactivity)
+wakeUpBackend();
 
 // Global fetch interceptor to map 'Authorization' to 'X-Authorization'
 // This bypasses Google Cloud Run's GFE infrastructure which intercepts 'Authorization' and returns 403 Forbidden
