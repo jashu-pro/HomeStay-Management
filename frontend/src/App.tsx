@@ -243,8 +243,29 @@ export default function App() {
         setUser(data.user);
         localStorage.setItem('hs_user', JSON.stringify(data.user));
       } catch (err: any) {
-        console.error('[Auth & Sync] Session verification failed. Logging out...', err);
-        handleLogout();
+        const msg = err?.message || '';
+        // Only force logout on explicit authentication failures (401/403)
+        // Network errors, timeouts, and server startup errors (Render cold start)
+        // should NOT log the user out — we keep the cached session alive.
+        const isAuthError = 
+          msg.includes('401') ||
+          msg.includes('403') ||
+          msg.includes('Access denied') ||
+          msg.includes('Invalid or expired token') ||
+          msg.includes('session expired');
+
+        if (isAuthError) {
+          console.error('[Auth & Sync] Token rejected by server. Logging out...', err);
+          handleLogout();
+        } else {
+          // Network error / server waking up — keep the user logged in
+          console.warn('[Auth & Sync] Could not verify session (server may be waking up). Keeping cached session.', msg);
+          // Use cached user data from localStorage
+          const saved = localStorage.getItem('hs_user');
+          if (saved) {
+            try { setUser(JSON.parse(saved)); } catch (_) {}
+          }
+        }
       } finally {
         setCheckingAuth(false);
       }
