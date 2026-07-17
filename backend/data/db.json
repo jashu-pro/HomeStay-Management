@@ -1,6 +1,21 @@
 {
   "users": [
     {
+      "id": "u-1784224888263",
+      "role": "admin",
+      "email": "jaswanthmajji43@gmail.com",
+      "phone": "8121157489",
+      "fullName": "jaswanth",
+      "password": "$2b$10$UfnyHbtm6en/HaVboqbGJuPLWpkBPTt4tpcQJMXQCOqfcJu96OUoS",
+      "username": "jashu89",
+      "created_at": "2026-07-16T18:01:28.263Z",
+      "email_verified": true,
+      "securityQuestion": "What is your childhood nickname?",
+      "forcePasswordReset": false,
+      "securityAnswerHash": "$2b$10$S8dhkxEDsmH35W7Xwqw.8ejb/IbJZRlnD6SCd6TFMyee3VV1WVnJm",
+      "failedLoginAttempts": 0
+    },
+    {
       "id": "u-1784264035004",
       "role": "admin",
       "email": "jaswanthmajji24@gmail.com",
@@ -43,58 +58,11 @@
       "password": "$2b$10$VKaJ6kyh9d5URK.HxzVAkuEY302KaIlVBuZ1gT1yutWwYqgk4br6u",
       "username": "viewer",
       "email_verified": true
-    },
-    {
-      "id": "u-1784224888263",
-      "role": "admin",
-      "email": "jaswanthmajji43@gmail.com",
-      "phone": "8121157489",
-      "fullName": "jaswanth",
-      "password": "$2b$10$UfnyHbtm6en/HaVboqbGJuPLWpkBPTt4tpcQJMXQCOqfcJu96OUoS",
-      "username": "jashu89",
-      "created_at": "2026-07-16T18:01:28.263Z",
-      "email_verified": true,
-      "securityQuestion": "What is your childhood nickname?",
-      "forcePasswordReset": false,
-      "securityAnswerHash": "$2b$10$S8dhkxEDsmH35W7Xwqw.8ejb/IbJZRlnD6SCd6TFMyee3VV1WVnJm",
-      "failedLoginAttempts": 0
     }
   ],
   "guests": [],
   "bookings": [],
   "rooms": [
-    {
-      "status": "available",
-      "userId": "u-1784224888263",
-      "capacity": 2,
-      "category": "Super Deluxe",
-      "roomNumber": "201",
-      "pricePerNight": 3500
-    },
-    {
-      "status": "available",
-      "userId": "u-1784224888263",
-      "capacity": 2,
-      "category": "Super Deluxe",
-      "roomNumber": "202",
-      "pricePerNight": 3500
-    },
-    {
-      "status": "available",
-      "userId": "u1",
-      "capacity": 2,
-      "category": "Deluxe Room",
-      "roomNumber": "101",
-      "pricePerNight": 2500
-    },
-    {
-      "status": "available",
-      "userId": "u1",
-      "capacity": 3,
-      "category": "Premium Suite",
-      "roomNumber": "102",
-      "pricePerNight": 4500
-    },
     {
       "status": "available",
       "userId": "u1",
@@ -125,6 +93,38 @@
       "capacity": 3,
       "category": "Premium Suite",
       "roomNumber": "106",
+      "pricePerNight": 4500
+    },
+    {
+      "status": "available",
+      "userId": "u-1784224888263",
+      "capacity": 2,
+      "category": "Super Deluxe",
+      "roomNumber": "201",
+      "pricePerNight": 3500
+    },
+    {
+      "status": "available",
+      "userId": "u-1784224888263",
+      "capacity": 2,
+      "category": "Super Deluxe",
+      "roomNumber": "202",
+      "pricePerNight": 3500
+    },
+    {
+      "status": "available",
+      "userId": "u1",
+      "capacity": 2,
+      "category": "Deluxe Room",
+      "roomNumber": "101",
+      "pricePerNight": 2500
+    },
+    {
+      "status": "available",
+      "userId": "u1",
+      "capacity": 3,
+      "category": "Premium Suite",
+      "roomNumber": "102",
       "pricePerNight": 4500
     },
     {
@@ -197,6 +197,22 @@
   "payments": [],
   "auditLogs": [
     {
+      "id": "log-1784225218794-e6tr",
+      "action": "USER_LOGIN",
+      "userId": "u1",
+      "details": "User gopal_rao logged in successfully.",
+      "username": "gopal_rao",
+      "timestamp": "2026-07-16T18:06:58.794Z"
+    },
+    {
+      "id": "log-1784224888263-by4w",
+      "action": "CREATE_USER",
+      "userId": "u-1784224888263",
+      "details": "Self-registered admin user jashu89 (jaswanthmajji43@gmail.com)",
+      "username": "jashu89",
+      "timestamp": "2026-07-16T18:01:28.263Z"
+    },
+    {
       "id": "log-1784294436050-9fkt",
       "timestamp": "2026-07-17T13:20:36.050Z",
       "userId": "u-1784264035004",
@@ -227,22 +243,6 @@
       "details": "User jashu89 logged in successfully.",
       "username": "jashu89",
       "timestamp": "2026-07-17T04:45:25.271Z"
-    },
-    {
-      "id": "log-1784225218794-e6tr",
-      "action": "USER_LOGIN",
-      "userId": "u1",
-      "details": "User gopal_rao logged in successfully.",
-      "username": "gopal_rao",
-      "timestamp": "2026-07-16T18:06:58.794Z"
-    },
-    {
-      "id": "log-1784224888263-by4w",
-      "action": "CREATE_USER",
-      "userId": "u-1784224888263",
-      "details": "Self-registered admin user jashu89 (jaswanthmajji43@gmail.com)",
-      "username": "jashu89",
-      "timestamp": "2026-07-16T18:01:28.263Z"
     }
   ],
   "notifications": [],
