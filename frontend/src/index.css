@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+/* -------------------------------------------------------------
+   GLOBAL INPUT, TEXTAREA, AND SELECT FIELD STYLING
+   Ensures text is always black in light mode and fully readable,
+   and has perfect high-contrast legibility in both modes.
+   ------------------------------------------------------------- */
+
+/* Global styles for light mode / default state */
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+textarea,
+select {
+  color: #000000 !important;
+  background-color: #ffffff; /* default fallback background */
+  caret-color: #000000 !important;
+}
+
+/* Ensure placeholder text is a highly visible slate/gray */
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"])::placeholder,
+textarea::placeholder {
+  color: #6B7280 !important;
+  opacity: 1 !important; /* Override browser opacity overrides */
+}
+
+/* Ensure disabled input fields remain readable */
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):disabled,
+textarea:disabled,
+select:disabled {
+  color: #4B5563 !important; /* Gray-600 */
+  background-color: #F3F4F6 !important; /* Gray-100 */
+  border-color: #D1D5DB !important;
+  cursor: not-allowed;
+  opacity: 0.8 !important;
+}
+
+/* Focus styles for consistent outline */
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+textarea:focus,
+select:focus {
+  border-color: #3B82F6 !important; /* blue-500 */
+  outline: none;
+}
+
+/* -------------------------------------------------------------
+   DARK MODE ENHANCEMENTS (when root html has .dark class)
+   Ensures sufficient contrast, polished borders, and readable texts.
+   ------------------------------------------------------------- */
+.dark input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+.dark textarea,
+.dark select {
+  color: #ffffff !important;
+  background-color: #1e293b !important; /* slate-800 for dark mode */
+  border-color: #475569 !important; /* slate-600 */
+  caret-color: #ffffff !important;
+}
+
+/* Dark Mode visible placeholder */
+.dark input:not([type="checkbox"]):not([type="radio"]):not([type="file"])::placeholder,
+.dark textarea::placeholder {
+  color: #94a3b8 !important; /* slate-400 */
+  opacity: 1 !important;
+}
+
+/* Dark Mode disabled state */
+.dark input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):disabled,
+.dark textarea:disabled,
+.dark select:disabled {
+  color: #94a3b8 !important; /* slate-400 */
+  background-color: #334155 !important; /* slate-700 */
+  border-color: #475569 !important;
+  opacity: 0.7 !important;
+}
+
+/* Dark Mode focus ring */
+.dark input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: #60A5FA !important; /* blue-400 */
+}
+
+/* -------------------------------------------------------------
+   GLOBAL DARK MODE STYLE OVERRIDES
+   Automatically converts white backgrounds and dark text to
+   harmonious slate/dark-mode colors when the .dark class is active.
+   ------------------------------------------------------------- */
+.dark body {
+  background-color: #020617 !important; /* slate-950 */
+  color: #f1f5f9 !important; /* slate-100 */
+}
+
+.dark .min-h-screen {
+  background-color: #020617 !important;
+}
+
+/* Target elements with white backgrounds (cards, panels, modals, forms) */
+.dark .bg-white,
+.dark [class*="bg-white"] {
+  background-color: #0f172a !important; /* slate-900 */
+  color: #f1f5f9 !important;
+}
+
+/* Ensure the settings modal content, inputs, and dropdowns have dark backgrounds */
+.dark .bg-slate-50,
+.dark [class*="bg-slate-50"] {
+  background-color: #1e293b !important; /* slate-800 */
+}
+
+/* Ensure borders are dark and high contrast */
+.dark .border-slate-200,
+.dark .border-slate-100,
+.dark .border-slate-200\/80,
+.dark [class*="border-slate-200"],
+.dark [class*="border-slate-100"] {
+  border-color: #334155 !important; /* slate-700 */
+}
+
+/* Specific text color overrides for better contrast in dark mode */
+.dark .text-slate-900,
+.dark [class*="text-slate-900"] {
+  color: #f8fafc !important; /* slate-50 */
+}
+
+.dark .text-slate-800,
+.dark [class*="text-slate-800"] {
+  color: #f1f5f9 !important; /* slate-100 */
+}
+
+.dark .text-slate-700,
+.dark [class*="text-slate-700"] {
+  color: #e2e8f0 !important; /* slate-200 */
+}
+
+.dark .text-slate-600,
+.dark [class*="text-slate-600"] {
+  color: #cbd5e1 !important; /* slate-300 */
+}
+
+.dark .text-slate-500,
+.dark [class*="text-slate-500"] {
+  color: #94a3b8 !important; /* slate-400 */
+}
+
+.dark .text-slate-400,
+.dark [class*="text-slate-400"] {
+  color: #64748b !important; /* slate-500 */
+}
+

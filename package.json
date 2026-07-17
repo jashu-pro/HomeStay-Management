@@ -1,0 +1,17 @@
+{
+  "name": "homestay-management-main",
+  "version": "1.0.0",
+  "description": "A full-stack Homestay Management System with a React frontend and Express.js backend.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently --kill-others --kill-others-on-fail --names \"BACKEND,FRONTEND\" --prefix-colors \"cyan,magenta\" \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "build": "npm run build --prefix backend && npm run build --prefix frontend",
+    "install:all": "npm install --prefix backend && npm install --prefix frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}
