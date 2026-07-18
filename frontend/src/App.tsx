@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Language, translations } from './lib/translations';
-import { safeFetch } from './lib/api';
+import { safeFetch, isBackendReady } from './lib/api';
 
 // Import Views
 import LoginView from './components/LoginView';
@@ -106,6 +106,16 @@ export default function App() {
   });
 
   const [checkingAuth, setCheckingAuth] = useState(true);
+
+  // Server wake-up status
+  const [serverReady, setServerReady] = useState(isBackendReady);
+  useEffect(() => {
+    const onReady = () => setServerReady(true);
+    window.addEventListener('backend-ready', onReady);
+    // If already ready, dismiss immediately
+    if (isBackendReady()) setServerReady(true);
+    return () => window.removeEventListener('backend-ready', onReady);
+  }, []);
 
   // Dark/Light Theme Support
   const [theme, setTheme] = useState<'light' | 'dark'>(() => (localStorage.getItem('hs_theme') as 'light' | 'dark') || 'light');
@@ -406,7 +416,13 @@ export default function App() {
   if (checkingAuth) {
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center font-sans">
-        <div className="space-y-4 text-center">
+        {!serverReady && (
+          <div className="fixed top-0 left-0 right-0 z-50 bg-amber-500 text-white text-xs font-semibold px-4 py-2.5 flex items-center justify-center gap-2 shadow-lg">
+            <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin shrink-0" />
+            <span>🚀 Server is waking up from sleep — this takes ~20 seconds on first visit. Please wait...</span>
+          </div>
+        )}
+        <div className="space-y-4 text-center mt-8">
           <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
           <p className="text-sm text-slate-500 font-medium animate-pulse">
             {lang === 'en' ? 'Verifying session & syncing database...' : 'సెషన్‌ని ధృవీకరిస్తోంది & డేటాబేస్‌ను సమకాలీకరిస్తోంది...'}
@@ -417,7 +433,23 @@ export default function App() {
   }
 
   if (!token || !user) {
-    return <LoginView onLoginSuccess={handleLoginSuccess} lang={lang} setLang={setLang} />;
+    return (
+      <>
+        {!serverReady && (
+          <div className="fixed top-0 left-0 right-0 z-50 bg-amber-500 text-white text-xs font-semibold px-4 py-2.5 flex items-center justify-center gap-2 shadow-lg">
+            <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin shrink-0" />
+            <span>🚀 Server is waking up — first visit takes ~20 seconds. Please wait before logging in...</span>
+          </div>
+        )}
+        {serverReady && (
+          <div className="fixed top-0 left-0 right-0 z-50 bg-emerald-500 text-white text-xs font-semibold px-4 py-2 flex items-center justify-center gap-2 shadow-lg animate-pulse" style={{animationDuration:'1s', animationIterationCount: 3}}>
+            <span>✅ Server is ready! You can now log in.</span>
+          </div>
+        )}
+        <LoginView onLoginSuccess={handleLoginSuccess} lang={lang} setLang={setLang} />
+      </>
+    );
+  }
   }
 
   // Handle Forced Password Reset flow
