@@ -450,7 +450,6 @@ export default function App() {
       </>
     );
   }
-  }
 
   // Handle Forced Password Reset flow
   if (user && (user as any).forcePasswordReset) {
